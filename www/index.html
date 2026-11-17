@@ -2011,6 +2011,13 @@
   });
   applyLanguage(LANG);
   updateContrastUI();
+  // no app Android (Capacitor) a impressão não funciona: esconde o botão Imprimir
+  const isNativeApp = !!(window.Capacitor && (typeof window.Capacitor.isNativePlatform === 'function'
+    ? window.Capacitor.isNativePlatform() : window.Capacitor.platform && window.Capacitor.platform !== 'web'));
+  if(isNativeApp){
+    const pc = document.getElementById('printControls');
+    if(pc) pc.style.display = 'none';
+  }
   const splashEl = document.getElementById('splash');
   if(splashEl){
     setTimeout(()=>{ splashEl.classList.add('hide'); setTimeout(()=>splashEl.remove(), 600); }, 1500);
